@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zip Ingestor</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Include JSZip for client-side zip processing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Upload Section -->
+    <div id="uploadSection">
+      <h1>Zip Ingestor</h1>
+      <p>Upload your repository zip file, customize exclusions, and process for LLM ingestion.</p>
+      
+      <div class="upload-area" id="uploadArea">
+        Drag &amp; drop your .zip file here or click to select a file
+        <input type="file" id="zipFileInput" accept=".zip" style="display:none;">
+      </div>
+      
+      <div class="options">
+        <h2>Exclusion Options</h2>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="exclusion-checkbox" value="node_modules" checked> node_modules</label>
+          <label><input type="checkbox" class="exclusion-checkbox" value="public" checked> public</label>
+          <label><input type="checkbox" class="exclusion-checkbox" value="assets" checked> assets</label>
+          <label><input type="checkbox" class="exclusion-checkbox" value="package-lock.json" checked> package-lock.json</label>
+          <label><input type="checkbox" class="exclusion-checkbox" value="favicon.ico" checked> favicon.ico</label>
+          <label><input type="checkbox" class="exclusion-checkbox" value=".git" checked> .git</label>
+          <label><input type="checkbox" class="exclusion-checkbox" value="yarn.lock" checked> yarn.lock</label>
+          <label><input type="checkbox" class="exclusion-checkbox" value=".env" checked> .env</label>
+          <label><input type="checkbox" class="exclusion-checkbox" value=".gitignore" checked> .gitignore</label>
+          <label><input type="checkbox" class="exclusion-checkbox" value=".gitattributes" checked> .gitattributes</label>
+        </div>
+        <label for="customExcludes">Custom Exclusions (comma-separated):</label>
+        <input type="text" id="customExcludes" placeholder="e.g., docs, tests" />
+      </div>
+      
+      <button id="uploadBtn">Upload and Process</button>
+      <p id="status"></p>
+    </div>
+    
+    <!-- Dashboard Section -->
+    <div id="dashboardSection" style="display:none;">
+      <div class="dashboard-container">
+        <!-- Sidebar: File Directory Tree View -->
+        <div class="dashboard-sidebar">
+          <h2>File Directory</h2>
+          <p class="instruction">Click a file to toggle include/exclude<br />(strike‑through means excluded).</p>
+          <div id="fileTree"></div>
+        </div>
+        <!-- Main Content: Aggregated File Content -->
+        <div class="dashboard-content">
+          <h2>Aggregated Content</h2>
+          <textarea id="output" placeholder="Processed repository content will appear here..." readonly></textarea>
+        </div>
+      </div>
+      <!-- Copy Button placed clearly outside the file tree area -->
+      <div id="copySection">
+        <button id="copyBtn" aria-label="Copy aggregated content">Copy All Content</button>
+      </div>
+      <button id="newUploadBtn">Process Another File</button>
+    </div>
+    
+    <!-- Footer Section -->
+    <footer>
+      <p>
+        Made by <a href="https://github.com/nikgautamgithub" target="_blank">nikgautamgithub</a>. Inspired by gitingest.com — something I forced ChatGPT to make in 10 mins because ChatGPT is still too dumb to properly ingest a zip file 😋.
+      </p>
+    </footer>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
